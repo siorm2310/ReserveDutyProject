@@ -1,0 +1,20 @@
+{% extends "mainapp/home.html" %} {% load crispy_forms_tags %} {% block modal %}
+
+<div id="updateModal" class="modal" dir="rtl">
+  <div class="modal-content">
+    <form action="" method="post">
+      {% csrf_token %}
+      <fieldset class="form-group">
+        <legend class="border-bottom mb-7" style="font-size: 30px">
+          <span class="close" onclick="location.href='/'">&times;</span>
+          עדכן פרטים
+        </legend>
+        {{ form|crispy }}
+      </fieldset>
+      <br />
+      <button type="submit" class="btnmed">עדכן</button>
+    </form>
+  </div>
+</div>
+
+{% endblock %}

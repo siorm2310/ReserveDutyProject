@@ -1,0 +1,16 @@
+{% extends "mainapp/home.html" %} {% block modal %}
+
+<div id="deleteModal" class="modal" dir="rtl">
+  <div class="modal-content">
+    <p class="border-bottom mb-8" style="font-size: 30px">
+      <span class="close" onclick="location.href='/'">&times;</span>
+      אשר מחיקה
+    </p>
+    <form action="" method="post">
+      {% csrf_token %}
+      <button type="submit" class="btnmed">מחק</button>
+    </form>
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,93 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="he">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <script
+      defer
+      src="{% static 'mainapp/bootstrap/js/bootstrap.min.js' %}"
+    ></script>
+    <script defer src="{% static 'mainapp/main.js' %}"></script>
+
+    <title>מאגר אנשי מילואים</title>
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'mainapp/bootstrap/css/bootstrap.min.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'mainapp/style.css' %}"
+    />
+  </head>
+  <body>
+    <div class="split button_side" dir="rtl">
+      <button onclick="location.href='/add/'" id="addBtn" class="btnbig">
+        הוסף איש מילואים
+      </button>
+      <button onclick="updatePerson()" id="updateBtn" class="btnbig" disabled>
+        עדכן איש מילואים
+      </button>
+      <button onclick="deletePerson()" id="deleteBtn" class="btnbig" disabled>
+        הסר איש מילואים
+      </button>
+      <div class="border-bottom m-3"></div>
+      <div class="search_box">
+        <input
+          type="text"
+          maxlength="10"
+          class="form-control inputsmall mb-3"
+          id="search"
+          dir="rtl"
+        />
+        <button class="btnsmall" onclick="findWord()">חפש שם</button>
+        <button class="btnsmall" onclick="location.href='/'">בטל חיפוש</button>
+      </div>
+      <div class="border-bottom mx-3 my-2"></div>
+      <button class="btnmed mt-3" onclick="printButton()">
+        ייצא טבלה ל-Excel
+      </button>
+    </div>
+
+    <div class="split table_side">
+      <h1>אנשי מילואים</h1>
+      <div class="scrollbar" bottom="0">
+        <table class="table table-bordered" style="font-size: 25px" dir="rtl">
+          <thead>
+            <tr class="row1">
+              <th colspan="2">שם</th>
+              <th>דרגה</th>
+              <th>מדור</th>
+              <th>תאריך אחרון</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for i in person_list %}
+            <tr class="row2" onclick="changeRadio('{{i.id}}')">
+              <td>
+                <input
+                  type="radio"
+                  name="selectPersonnel"
+                  id="{{i.id}}"
+                  onchange="enableButtons()"
+                />
+              </td>
+              <td name="name" id="{{i.name}}">{{ i.name }}</td>
+              <td>{{ i.get_rank_display }}</td>
+              <td>{{ i.get_group_display }}</td>
+              <td>{{ i.last_here|date:"j/n/Y" }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    {% block modal %}{% endblock %}
+  </body>
+</html>
